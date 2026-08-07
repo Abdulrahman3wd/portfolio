@@ -17,6 +17,7 @@
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     --transition: all 0.3s ease;
+    --topbar-height: 64px;
 }
 
 body {
@@ -311,6 +312,17 @@ body {
     font-weight: 500;
 }
 
+.timeline-content ul {
+    color: var(--text-light);
+    padding-left: 20px;
+}
+
+.timeline-content ul li {
+    margin-bottom: 8px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
 /* Education Styles */
 .education-item {
     display: flex;
@@ -411,6 +423,12 @@ body {
     color: var(--text);
 }
 
+.project-item p:not(.tech-stack) {
+    color: var(--text-light);
+    font-size: 14px;
+    text-align: left;
+}
+
 .tech-stack {
     font-style: italic;
     color: var(--accent-light);
@@ -494,12 +512,15 @@ body {
     font-size: 15px;
 }
 
-/* Responsive Design */
+/* ==========================================================
+   Responsive Design
+   ========================================================== */
+
 @media (max-width: 1200px) {
     .sidebar {
         width: 320px;
     }
-    
+
     .main-content {
         margin-left: 320px;
     }
@@ -509,32 +530,32 @@ body {
     .container {
         flex-direction: column;
     }
-    
+
     .sidebar {
         position: relative;
         width: 100%;
         height: auto;
     }
-    
+
     .main-content {
         margin-left: 0;
         padding: 30px;
     }
-    
+
     .profile-section {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-    
+
     .contact-info {
         text-align: center;
     }
-    
+
     .timeline::before {
         left: 35px;
     }
-    
+
     .timeline-marker {
         width: 70px;
         height: 70px;
@@ -542,52 +563,184 @@ body {
     }
 }
 
+/* Mobile: collapse the sidebar into a compact top bar with
+   icon-only nav tabs placed next to each other */
 @media (max-width: 768px) {
+    body {
+        padding-top: var(--topbar-height);
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    /* Sidebar becomes a fixed top bar */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: var(--topbar-height);
+        padding: 0;
+        display: flex;
+        align-items: center;
+        overflow: visible;
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+        z-index: 200;
+    }
+
+    /* Hide the big profile block on mobile, replace with a compact strip */
+    .profile-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 0;
+        padding: 0 12px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--glass-border);
+        height: 100%;
+    }
+
+    .profile-img {
+        width: 38px;
+        height: 38px;
+        margin: 0;
+        border-width: 2px;
+        box-shadow: none;
+    }
+
+    .profile-section h1 {
+        display: none;
+    }
+
+    .profile-section h2 {
+        display: none;
+    }
+
+    .contact-info,
+    .social-links {
+        display: none;
+    }
+
+    /* Nav becomes a horizontal row of icon-only tabs */
+    .sidebar-nav {
+        flex: 1;
+        height: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sidebar-nav ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 0;
+        height: 100%;
+        gap: 4px;
+        padding: 0 8px;
+    }
+
+    .sidebar-nav li {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .sidebar-nav a {
+        flex-direction: column;
+        justify-content: center;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 0;
+    }
+
+    .sidebar-nav a.active,
+    .sidebar-nav a:hover {
+        border-left: none;
+        border-bottom: 3px solid var(--accent);
+    }
+
+    .sidebar-nav i {
+        margin-right: 0;
+        font-size: 20px;
+    }
+
+    .sidebar-nav span {
+        display: none;
+    }
+
     .main-content {
+        margin-left: 0;
         padding: 20px;
     }
-    
+
     .courses-grid, .projects-grid, .skills-grid, .soft-skills-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .section-title {
-        font-size: 28px;
+        font-size: 26px;
     }
-    
+
     .section-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
+        width: 46px;
+        height: 46px;
+        font-size: 22px;
     }
-    
+
     .timeline-item {
         flex-direction: column;
     }
-    
+
     .timeline-marker {
         margin-bottom: 15px;
         margin-right: 0;
+        width: 55px;
+        height: 55px;
+        font-size: 24px;
     }
-    
+
     .timeline::before {
         display: none;
     }
-    
+
     .education-item {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .edu-icon {
         margin-right: 0;
         margin-bottom: 15px;
+    }
+
+    .glass-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-nav a {
+        padding: 8px 10px;
+    }
+
+    .sidebar-nav i {
+        font-size: 18px;
+    }
+
+    .section-header {
+        flex-wrap: wrap;
+        gap: 12px;
     }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
